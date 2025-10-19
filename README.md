@@ -1,4 +1,4 @@
----
+
 
 ### Documentasi
 
@@ -8,7 +8,6 @@ Ini adalah **Bot Otomatisasi Pi Network**, sebuah program yang dijalankan melalu
 -   Mengumpulkan (menyapu/sweep) semua koin Pi dari banyak dompet ke satu dompet utama.
 -   Memeriksa saldo dan mengirim transaksi secara terprogram.
 
----
 
 ### 🚨 **PERINGATAN UTAMA (SANGAT PENTING!)** 🚨
 

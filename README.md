@@ -38,7 +38,7 @@ Sebelum memulai, pastikan Anda telah menginstal:
 3.  **Instal Dependensi:**
     Buka terminal di dalam folder proyek Anda dan jalankan perintah berikut:
     ```bash
-    npm install stellar-sdk bip39 ed25519-hd-key
+    npm install
     ```
     Anda hanya perlu melakukan ini sekali. Setelah selesai, Anda siap untuk menggunakan skrip.
 

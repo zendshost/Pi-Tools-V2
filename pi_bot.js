@@ -14,21 +14,10 @@ const server = new StellarSdk.Server(PI_HORIZON_URL, { allowHttp: true });
 const CUSTOM_FEE = '100000'; // Biaya transaksi 0.01 Pi
 const FEE_IN_PI = 0.01;
 const BASE_RESERVE_PI = 1.0; // Saldo minimum yang WAJIB ada di dompet Pi
-const DELAY_BETWEEN_SWEEP_MS = 2000; // Jeda waktu 2 detik antara transaksi sweep
+const DELAY_BETWEEN_SWEEP_MS = 1000; // Jeda waktu 1 detik antara transaksi sweep
 
 // Fungsi helper untuk jeda waktu
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-/**
- * ==========================================================
- * PERINGATAN KEAMANAN (SECURITY WARNING)
- * ==========================================================
- * Skrip ini menangani kunci rahasia (secret key) dan frasa mnemonik.
- * Pastikan Anda menjalankan skrip ini di lingkungan yang aman.
- * File output seperti 'secret.txt' dan 'restored_wallets.csv' SANGAT SENSITIF.
- * ==========================================================
- */
-
 
 // --- FUNGSI-FUNGSI MANAJEMEN DOMPET ---
 
@@ -194,7 +183,7 @@ async function sweepAllWallets(secretKeyFilePath, destinationPublicKey) {
 }
 
 async function sendPayment(secretKey, destination, amount, memo) {
-  // Fungsi ini tetap sama, untuk mengirim sejumlah tertentu
+  // Fungsi untuk mengirim sejumlah tertentu
   console.log(`💸 Mempersiapkan pengiriman ${amount} Pi ke ${destination}...`);
   try {
     const sourceKeypair = StellarSdk.Keypair.fromSecret(secretKey);

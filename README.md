@@ -1,123 +1,112 @@
 ---
 
-# Pi Network Automation Bot
+### Ringkasan Singkat: Apa Ini?
 
-Sebuah *tool* baris perintah (CLI) yang dibuat dengan Node.js untuk mengotomatiskan berbagai tugas di blockchain Pi Network. Alat ini dirancang untuk membantu pengguna mengelola banyak dompet, memulihkan dari frasa mnemonik, dan mengkonsolidasikan dana secara efisien.
+Ini adalah **Bot Otomatisasi Pi Network**, sebuah program yang dijalankan melalui baris perintah (terminal/CMD) untuk mengelola banyak dompet Pi Network sekaligus. Alat ini sangat berguna jika Anda memiliki puluhan, ratusan, atau bahkan ribuan dompet dan ingin melakukan tugas seperti:
 
-🚨 **PERINGATAN KEAMANAN YANG SANGAT PENTING** 🚨
-> Skrip ini menangani data yang sangat sensitif, termasuk **frasa mnemonik** dan **secret key**.
-> - **JANGAN PERNAH** membagikan file `phrase.txt`, `SecretKey.txt`, atau `restored_wallets.csv` kepada siapapun.
-> - **JANGAN PERNAH** menjalankan skrip ini di komputer yang tidak Anda percayai atau di lingkungan publik.
-> - **GUNAKAN DENGAN RISIKO ANDA SENDIRI.** Penulis tidak bertanggung jawab atas kehilangan dana apa pun.
+*   Memulihkan semua dompet dari daftar frasa sandi (mnemonic).
+*   Mengumpulkan (menyapu/sweep) semua koin Pi dari banyak dompet ke satu dompet utama.
+*   Memeriksa saldo dan mengirim transaksi secara terprogram.
 
 ---
 
-## ✨ Fitur Utama
+### 🚨 **PERINGATAN UTAMA (SANGAT PENTING!)** 🚨
 
--   **Generate Wallet**: Membuat dompet Pi baru.
--   **Restore Wallet**: Memulihkan satu dompet dari frasa mnemonik.
--   **Batch Restore**: Memulihkan **ratusan atau ribuan** dompet dari satu file dan menyimpannya dalam format CSV.
--   **Sweep All Wallets**: Mengumpulkan **semua saldo yang tersedia** (di atas 1 Pi) dari banyak dompet ke satu alamat tujuan.
--   **Send Payment**: Mengirim sejumlah Pi tertentu dari satu dompet.
--   **Check Balance**: Memeriksa saldo sebuah alamat dompet.
+Sebelum Anda melanjutkan, pahami risikonya:
 
-## 🛠️ Prasyarat
+1.  **Keamanan Data:** Alat ini akan meminta dan menyimpan **frasa mnemonik** dan **secret key** Anda dalam file di komputer Anda (`phrase.txt`, `SecretKey.txt`, `restored_wallets.csv`). File-file ini adalah kunci utama ke seluruh dana Pi Anda.
+2.  **Jangan Bagikan File Apapun:** Siapapun yang memiliki akses ke file-file tersebut dapat **MENGURAS HABIS** semua koin Pi Anda.
+3.  **Gunakan di Komputer Aman:** Pastikan komputer Anda bebas dari virus, malware, atau keylogger. Jangan pernah menjalankannya di komputer umum atau yang tidak Anda percayai.
+4.  **Risiko Ditanggung Sendiri:** Pengembang dan saya (sebagai AI) tidak bertanggung jawab jika terjadi kehilangan dana. **Gunakan dengan sangat hati-hati.**
 
-Sebelum memulai, pastikan Anda telah menginstal:
--   [Node.js](https://nodejs.org/) (versi 16 atau lebih baru direkomendasikan)
--   npm (biasanya terinstal bersama Node.js)
+---
 
-## 🚀 Instalasi
+### Panduan Lengkap: Cara Instalasi dan Penggunaan
 
-1.  **Siapkan Folder Proyek:**
-    Buat folder baru untuk proyek ini (misalnya, `pi-automation`) dan masuk ke dalamnya melalui terminal.
+Berikut adalah langkah-langkah dari awal hingga akhir untuk menggunakan alat ini.
 
-2.  **Simpan File Skrip:**
-    Simpan kode bot sebagai `pi_bot.js` di dalam folder yang baru Anda buat.
+#### Langkah 1: Instalasi
 
-3.  **Instal Dependensi:**
-    Buka terminal di dalam folder proyek Anda dan jalankan perintah berikut:
+Anda perlu menyiapkan *tool* ini di komputer Anda terlebih dahulu.
+
+1.  **Buka Terminal atau Command Prompt (CMD).**
+    *   Di Windows, cari "Command Prompt" atau "PowerShell".
+    *   Di macOS atau Linux, cari "Terminal".
+
+2.  **Clone Repositori dari GitHub.**
+    Jalankan perintah yang Anda berikan untuk mengunduh semua file dari repositori.
+    ```bash
+    git clone https://github.com/zendshost/Pi-Tools-V2.git
+    ```
+
+3.  **Masuk ke Folder Proyek.**
+    Setelah selesai mengunduh, masuk ke folder yang baru dibuat.
+    ```bash
+    cd Pi-Tools-V2
+    ```
+
+4.  **Instal Dependensi yang Diperlukan.**
+    Alat ini memerlukan beberapa paket Node.js agar bisa berjalan. Perintah ini akan mengunduh dan menginstalnya secara otomatis.
     ```bash
     npm install
     ```
-    Anda hanya perlu melakukan ini sekali. Setelah selesai, Anda siap untuk menggunakan skrip.
+    Tunggu hingga proses selesai. Jika tidak ada error, alat Anda sudah siap digunakan.
+
+#### Langkah 2: Contoh Penggunaan Utama (Mengumpulkan Dana dari Banyak Dompet)
+
+Ini adalah alur kerja yang paling umum, yaitu memulihkan banyak dompet dan mengirim semua koinnya ke satu dompet utama.
+
+1.  **Buat File `phrase.txt`**
+    *   Di dalam folder `Pi-Tools-V2`, buat sebuah file baru bernama `phrase.txt`.
+    *   Isi file ini dengan semua frasa mnemonik (24 kata) dari dompet-dompet yang ingin Anda pulihkan.
+    *   **Penting:** Setiap frasa harus berada di baris baru.
+    *   Contoh isi `phrase.txt`:
+        ```
+        word1 word2 word3 ... word24
+        another1 another2 another3 ... another24
+        yetanother1 yetanother2 yetanother3 ... yetanother24
+        ```
+
+2.  **Jalankan Proses Pemulihan Batch (`restore-batch`)**
+    *   Kembali ke terminal Anda (yang masih berada di dalam folder `Pi-Tools-V2`).
+    *   Jalankan perintah berikut:
+        ```bash
+        node pi_bot.js restore-batch phrase.txt
+        ```
+    *   Alat ini akan membaca setiap baris di `phrase.txt`, memulihkan dompetnya, dan membuat dua file baru:
+        *   `restored_wallets.csv`: Berisi tabel lengkap (Mnemonic, Public Key, Secret Key). **SIMPAN FILE INI DENGAN SANGAT AMAN!**
+        *   `SecretKey.txt`: Berisi daftar *secret key* saja. File ini akan kita gunakan di langkah berikutnya.
+
+3.  **Jalankan Proses Pengumpulan Dana (`sweep-all`)**
+    *   Sekarang Anda akan menggunakan file `SecretKey.txt` untuk mengirim semua saldo dari dompet-dompet tersebut ke dompet utama Anda.
+    *   Siapkan alamat dompet utama Anda (yang dimulai dengan huruf `G`).
+    *   Jalankan perintah berikut, ganti `G...ALAMAT_UTAMA_ANDA` dengan alamat dompet Anda yang sebenarnya:
+        ```bash
+        node pi_bot.js sweep-all SecretKey.txt G...ALAMAT_UTAMA_ANDA
+        ```
+    *   **Contoh:**
+        ```bash
+        node pi_bot.js sweep-all SecretKey.txt GBYP2GVPYAS2Y6FWB5PALY4A4ER34L2HYK2JBUT2B3T5T3F4V5U6X7Y8
+        ```
+    *   Bot akan mulai memproses setiap *secret key* satu per satu, memeriksa saldo, dan mengirimkannya ke alamat tujuan Anda. Proses ini mungkin memakan waktu lama jika Anda memiliki banyak dompet, jadi biarkan saja berjalan.
+
+### Daftar Semua Perintah (Sebagai Referensi)
+
+*   **Membuat dompet baru:**
+    `node pi_bot.js generate`
+
+*   **Memulihkan 1 dompet (frasa diketik langsung):**
+    `node pi_bot.js restore kata1 kata2 kata3 ...`
+
+*   **Memeriksa saldo:**
+    `node pi_bot.js balance G...ALAMAT_PUBLIK`
+
+*   **Mengirim Pi dari 1 dompet (secret key diketik):**
+    `node pi_bot.js send S...SECRET_KEY G...ALAMAT_TUJUAN JUMLAH`
 
 ---
 
-## 📖 Panduan Penggunaan (Command Reference)
-
-Semua perintah dijalankan dari terminal dengan format: `node pi_bot.js <perintah> [argumen]`
-
-### ⚙️ Manajemen Dompet
-
-#### `generate`
-Membuat dompet Pi baru dan secara otomatis menyimpan `secret.txt` untuk penggunaan cepat.
--   **Syntax:** `node pi_bot.js generate`
-
-#### `restore <frasa | file.txt>`
-Memulihkan satu dompet dari frasa mnemonik yang diketik langsung atau dari sebuah file.
--   **Syntax (ketik langsung):** `node pi_bot.js restore kata1 kata2 kata3 ...`
--   **Syntax (dari file):** `node pi_bot.js restore phrase.txt`
-
-#### `restore-batch <file_phrase.txt>`
-Memulihkan banyak dompet dari file yang berisi satu frasa per baris. Ini adalah perintah yang paling kuat untuk memulai.
--   **Syntax:** `node pi_bot.js restore-batch phrase.txt`
--   **Output:** Menghasilkan dua file:
-    1.  `restored_wallets.csv`: Arsip lengkap (Mnemonic, Public Key, Secret Key). **SIMPAN DENGAN AMAN!**
-    2.  `SecretKey.txt`: Daftar Secret Key yang siap digunakan untuk perintah `sweep-all`.
-
-### 💸 Transaksi
-
-#### `sweep-all <file_secretkey.txt> <alamat_tujuan>`
-Mengumpulkan semua saldo yang dapat dikirim (total saldo dikurangi 1.01 Pi) dari semua dompet yang tercantum di file `SecretKey.txt` ke satu alamat tujuan.
--   **Syntax:** `node pi_bot.js sweep-all SecretKey.txt GABCD...XYZ`
-
-#### `sendfromfile <file_secret.txt> <tujuan> <jumlah> [memo]`
-Mengirim sejumlah Pi tertentu dari satu dompet, dengan membaca secret key dari file.
--   **Syntax:** `node pi_bot.js sendfromfile secret.txt GABCD...XYZ 10.5 "Donasi untuk proyek"`
-
-#### `send <secret_key> <tujuan> <jumlah> [memo]`
-Sama seperti `sendfromfile`, tetapi Anda mengetik secret key langsung di terminal.
--   **Syntax:** `node pi_bot.js send SABC...XYZ GABCD...XYZ 25`
-
-### ℹ️ Informasi
-
-#### `balance <alamat_publik>`
-Memeriksa saldo Pi dari sebuah alamat publik.
--   **Syntax:** `node pi_bot.js balance GABCD...XYZ`
-
----
-
-##  workflows/ Contoh Alur Kerja Utama
-
-Berikut adalah cara paling umum untuk menggunakan alat ini untuk mengkonsolidasikan dana dari banyak dompet.
-
-**Tujuan:** Memulihkan 1000 dompet dari frasa dan mengirim semua Pi ke dompet utama.
-
-1.  **Siapkan `phrase.txt`**
-    Buat file `phrase.txt` dan isi dengan 1000 frasa mnemonik Anda, masing-masing di baris baru.
-
-2.  **Jalankan `restore-batch`**
-    ```bash
-    node pi_bot.js restore-batch phrase.txt
-    ```
-    Tunggu hingga proses selesai. Sekarang Anda memiliki file `SecretKey.txt` yang berisi 1000 secret key.
-
-3.  **Jalankan `sweep-all`**
-    Gunakan file `SecretKey.txt` yang baru dibuat sebagai input untuk mengirim semua dana ke dompet utama Anda.
-    ```bash
-    # Ganti G... dengan alamat dompet utama Anda
-    node pi_bot.js sweep-all SecretKey.txt GYOURMAINWALLETADDRESS...
-    ```
-    Skrip akan memproses setiap dompet satu per satu dengan jeda waktu untuk menghindari pembatasan dari server. Biarkan proses berjalan hingga selesai.
-
-## 📄 Deskripsi File Penting
-
--   `phrase.txt` (Input Pengguna): File yang Anda buat, berisi daftar frasa mnemonik, satu per baris.
--   `SecretKey.txt` (Output / Input): Dihasilkan oleh `restore-batch` dan digunakan oleh `sweep-all`. Berisi daftar secret key.
--   `restored_wallets.csv` (Output): Dihasilkan oleh `restore-batch`. Ini adalah arsip utama Anda yang menghubungkan setiap mnemonic dengan kunci-kuncinya. **JAGA KERAHASIAANNYA!**
-
-## ✍️ Kontak Developer
+### ✍️ Kontak Developer
 
 Dibuat dan dikelola oleh **zendshost**.
 
@@ -125,6 +114,6 @@ Jika Anda memiliki pertanyaan, saran, atau menemukan bug, jangan ragu untuk meng
 
 -   **Telegram:** [@zendshost](https://t.me/zendshost)
 
-## 📜 Lisensi
+### 📜 Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT. Anda bebas menggunakan, memodifikasi, dan mendistribusikan kode ini.

@@ -117,6 +117,14 @@ Berikut adalah cara paling umum untuk menggunakan alat ini untuk mengkonsolidasi
 -   `SecretKey.txt` (Output / Input): Dihasilkan oleh `restore-batch` dan digunakan oleh `sweep-all`. Berisi daftar secret key.
 -   `restored_wallets.csv` (Output): Dihasilkan oleh `restore-batch`. Ini adalah arsip utama Anda yang menghubungkan setiap mnemonic dengan kunci-kuncinya. **JAGA KERAHASIAANNYA!**
 
+## ✍️ Kontak Developer
+
+Dibuat dan dikelola oleh **zendshost**.
+
+Jika Anda memiliki pertanyaan, saran, atau menemukan bug, jangan ragu untuk menghubungi melalui:
+
+-   **Telegram:** [@zendshost](https://t.me/zendshost)
+
 ## 📜 Lisensi
 
 Proyek ini dilisensikan di bawah Lisensi MIT. Anda bebas menggunakan, memodifikasi, dan mendistribusikan kode ini.
